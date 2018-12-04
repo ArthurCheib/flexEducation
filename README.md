@@ -1,2 +1,2 @@
 # flexEducation
-Flexdashboard for school Director
+Flexdashboard for school's Director
