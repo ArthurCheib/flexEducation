@@ -4,8 +4,10 @@ library(RMariaDB)
 library(tidyverse)
 library(knitr)
 library(rstudioapi)
+library(grDevices)
+library(colorRamps)
 
-#Convers�o da data no R para a data em formato num�rico do Excel (contagem em dias):
+#Conversão da data no R para a data em formato numérico do Excel (contagem em dias):
 data_hoje <- Sys.Date()
 data_last5 <- (Sys.Date() - 5)
 
@@ -17,18 +19,39 @@ con <- dbConnect(RMariaDB::MariaDB(),
                  user = "arthur_cheib",
                  password = rstudioapi::askForPassword("Database password"))
 
-qry_01 <- paste0("SELECT * ", 
+#### Query para df matrícula e enturmação:
+qry_01 <- paste0("SELECT SRE, COD_ESCOLA, ESCOLA, NIVEL, QT_ALUNO_MATRICULADO, QT_ALUNO_ENTURMADO, DATA ", 
                 "FROM TBL_MATRICULA ",
                 "WHERE data ",
                 "BETWEEN ", "'",data_last5, "'", " AND ", "'", data_hoje, "'", ";")
 
-data <- dbSendQuery(con, qry_01)
-df_mat_ent <- dbFetch(data)
+data_mt <- dbSendQuery(con, qry_01)
+df_mat_ent <- dbFetch(data_mt)
+dbClearResult(data_mt)
+
+#### Query para df criação de turmas:
+qry_02 <- paste0("SELECT SRE, COD_ESCOLA, ESCOLA, NIVEL, QT_TURMA_PA, QT_TURMA_CRIADA, QT_TURMA_AUTORIZADA, DATA ", 
+                 "FROM TBL_CRIACAO ",
+                 "WHERE data ",
+                 "BETWEEN ", "'",data_last5, "'", " AND ", "'", data_hoje, "'", ";")
+
+data_cr <- dbSendQuery(con, qry_02)
+df_cri_aut <- dbFetch(data_cr)
+dbClearResult(data_cr)
+
+#### Query para df encerramento:
+qry_03 <- paste0("SELECT SRE, COD_ESCOLA, ESCOLA, NIVEL, QT_TURMA_PA, QT_TURMA_CRIADA, QT_TURMA_AUTORIZADA, DATA ", 
+                 "FROM TBL_ENCERRAMENTO ",
+                 "WHERE data ",
+                 "BETWEEN ", "'",data_last5, "'", " AND ", "'", data_hoje, "'", ";")
+
+data_enc <- dbSendQuery(con, qry_03)
+df_encer <- dbFetch(data_enc)
+dbClearResult(data_enc)
 
 # RENDERIZATION
 rmarkdown::render(input = paste0(getwd(), "/relatorio_regional.Rmd"),
        output_file = "relatorio.html",
        output_dir = getwd())
 
-dbClearResult(data)
 dbDisconnect(con)
