@@ -30,13 +30,13 @@ total_matriculados <- df_mat_ent %>%
   filter(SRE == regional) %>% 
   top_n(1, wt = DATA) %>% 
   group_by(SRE) %>% 
-  summarize(TOTAL = sum(ALUNOS_MATRICULADOS)) %>% .[[2]]
+  summarize(TOTAL = sum(QT_ALUNO_MATRICULADO)) %>% .[[2]]
 
 total_enturmados <- df_mat_ent %>%
   filter(SRE == regional) %>% 
   top_n(1, wt = DATA) %>% 
   group_by(SRE) %>% 
-  summarize(TOTAL = sum(ALUNOS_ENTURMADOS)) %>% .[[2]]
+  summarize(TOTAL = sum(QT_ALUNO_ENTURMADO)) %>% .[[2]]
 
 pct_enturmado <- round(100 * total_enturmados/total_matriculados)
 
@@ -68,8 +68,8 @@ escolas_abaixo <- nrow(df_mat_ent %>%
   filter(SRE == regional,
          between(DATA, today() - days(75), today())) %>% 
   group_by(COD_ESCOLA, ESCOLA) %>%
-  summarize(TOTAL_MATRICULADOS = sum(ALUNOS_MATRICULADOS),
-            TOTAL_ENTURMADOS = sum(ALUNOS_ENTURMADOS)) %>% 
+  summarize(TOTAL_MATRICULADOS = sum(QT_ALUNO_MATRICULADO),
+            TOTAL_ENTURMADOS = sum(QT_ALUNO_ENTURMADO)) %>% 
   mutate(PERCENTUAL_ENTURMADOS = floor((TOTAL_ENTURMADOS/TOTAL_MATRICULADOS)*100)) %>% ungroup() %>% 
   arrange(PERCENTUAL_ENTURMADOS) %>%
   filter(PERCENTUAL_ENTURMADOS <= pct_enturmado))
@@ -103,8 +103,8 @@ p <- df_mat_ent %>%
   filter(SRE == regional,
          between(DATA, today() - days(75), today())) %>% 
   group_by(COD_ESCOLA, ESCOLA) %>%
-  summarize(TOTAL_MATRICULADOS = sum(ALUNOS_MATRICULADOS),
-            TOTAL_ENTURMADOS = sum(ALUNOS_ENTURMADOS)) %>% 
+  summarize(TOTAL_MATRICULADOS = sum(QT_ALUNO_MATRICULADO),
+            TOTAL_ENTURMADOS = sum(QT_ALUNO_ENTURMADO)) %>% 
   mutate(PERCENTUAL_ENTURMADOS = floor((TOTAL_ENTURMADOS/TOTAL_MATRICULADOS)*100)) %>% ungroup() %>% 
   arrange(PERCENTUAL_ENTURMADOS) %>% 
   mutate(Y = ave(PERCENTUAL_ENTURMADOS, PERCENTUAL_ENTURMADOS, FUN = seq_along),
@@ -130,8 +130,8 @@ graph2 <- df_mat_ent %>%
   filter(SRE == regional,
          between(DATA, today() - days(75), today())) %>% 
   group_by(DATA, NIVEL) %>%
-  summarize(TOTAL_MAT = sum(ALUNOS_MATRICULADOS),
-            TOTAL_ENT = sum(ALUNOS_ENTURMADOS)) %>% 
+  summarize(TOTAL_MAT = sum(QT_ALUNO_MATRICULADO),
+            TOTAL_ENT = sum(QT_ALUNO_ENTURMADO)) %>% 
   mutate(PERCENTUAL_ENTURMADOS = round((TOTAL_ENT/TOTAL_MAT)*100, digits = 2),
          NIVEL_2 = case_when(NIVEL == "PRESENCIAL - ENSINO FUNDAMENTAL" ~ "EDUCAÇÃO JOVENS E ADULTOS",
                            NIVEL == "PRESENCIAL - ENSINO MÉDIO" ~ "EDUCAÇÃO JOVENS E ADULTOS",
@@ -145,11 +145,6 @@ graph2 <- df_mat_ent %>%
   facet_wrap(.~ NIVEL_2)
 
 ggplotly(graph2)
-  
-  # geom_line(size = 1, color="white") +
-  # geom_point(size=2, color="red") +
-  # theme_economist() +
-  # scale_x_date(breaks = breaks)
 ```
 
 ### Tabela - Total de alunos matriculados/enturmados (por escola)
@@ -159,8 +154,8 @@ tabela_escola <- df_mat_ent %>%
   filter(SRE == regional,
          between(DATA, today() - days(75), today())) %>% 
   group_by(COD_ESCOLA, ESCOLA) %>%
-  summarize(TOTAL_MATRICULADOS = sum(ALUNOS_MATRICULADOS),
-            TOTAL_ENTURMADOS = sum(ALUNOS_ENTURMADOS)) %>% 
+  summarize(TOTAL_MATRICULADOS = sum(QT_ALUNO_MATRICULADO),
+            TOTAL_ENTURMADOS = sum(QT_ALUNO_ENTURMADO)) %>% 
   mutate(PERCENTUAL_ENTURMADOS = floor((TOTAL_ENTURMADOS/TOTAL_MATRICULADOS)*100)) %>% ungroup() %>% 
   arrange(PERCENTUAL_ENTURMADOS)
 
