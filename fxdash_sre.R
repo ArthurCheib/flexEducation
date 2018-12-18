@@ -56,3 +56,13 @@ rmarkdown::render(input = paste0(getwd(), "/relatorio_regional.Rmd"),
        output_dir = getwd())
 
 dbDisconnect(con)
+
+# Master renderization
+regionais <- unique(df_mat_ent$SRE)
+
+for (regional in regionais) {
+  
+  rmarkdown::render(input = paste0(getwd(), "/relatorio_regional.Rmd"),
+                    output_file = str_c("Quadro de Monitoramento - ", regional, ".html"),
+                    output_dir = getwd())
+  }

@@ -15,6 +15,7 @@ library(tidyverse)
 library(ggthemes)
 library(knitr)
 library(DT)
+library(ggrepel)
 ```
 
 Introdução
@@ -33,39 +34,53 @@ Column {.sidebar data-width=550}
 
 ### **A quem ele se destina?**
 
-> Ele se destina ao SEDINE, principal responsável pelo andamento dos processos que envolvem as informações enviadas. 
+> Ele se destina ao SEDINE, responsável pelo andamento dos processos que envolvem as informações enviadas. 
 
 ### **Com que frequência ele será enviado?**
 
 > Durante o mês de Dezembro e até data limite - a ser estipulada - este painel será atualizado diariamente. 
 
-Column {data-height=100}
+Column {data-height=40}
 -----------------------------------------------------------------------
 
 ```{r}
-trinta <- "INFORMAÇÕES RELEVANTES DE CADA PAINEL"
+trinta <- "**INFORMAÇÕES RELEVANTES DE CADA PAINEL**"
 
 valueBox(value = trinta, color = "orange")
 ```
 
-Column {data-height=300}
+Column {data-height=250}
 -----------------------------------------------------------------------
 
 ### MATRÍCULA E ENTURMAÇÃO
 
-A aba com as informações referentes à Matrícula e Enturmação pode ser acessada pelo painel superior e o seu conteúdo está dividido em três partes:
+As informações referentes à Matrícula e Enturmação podem ser acessadas pelo painel superior e o seu conteúdo se divide em:
 
-* Uma aba **superior** que contém os principais dados de quantidade de alunos matriculados e enturmados, além de informações acerca das escolas que se encontram com um percentual abaixo da 
+* Uma **aba superior** que contém os principais dados de alunos matriculados e enturmados.
+* Dois **gráficos** contendo a quantidade de escolas por percentual de enturmação, sendo cada escola um ponto do gráfico.
+* Uma **tabela** com dados gerais - por escola -  do percentual de enturmados disponível para downlod nos formatos **excel** e **pdf**
 
-Column {data-height=300}
+Column {data-height=355}
 -----------------------------------------------------------------------
 
 ### CRIAÇÃO E AUTORIZAÇÃO DE TURMAS
 
-Column {data-height=300}
+As informações referentes à Criação e Autorização de Turmas são acessadas pelo painel superior e o seu conteúdo se divide em:
+
+* Uma **aba superior** que contém os principais dados de turmas criadas e autorizadas na regional.
+* Um **gráfico** contendo a evolução do número absoluto de turmas no Plano de Atendimento, Criadas e Autorizadas para diferentes datas (as últimas cinco disponíveis no SIMADE).
+* Uma **tabela** com dados gerais - por escola - do percentual de turmas criadas e autorizadas e que também se encontra disponível para downlod nos formatos **excel** e **pdf**
+
+Column {data-height=355}
 -----------------------------------------------------------------------
 
 ### ENCERRAMENTO DE ALUNOS
+
+As informações referentes ao Encerramento de Alunos se encontram no painel superior do arquivo e o seu conteúdo se divide em:
+
+* Uma **aba superior** que contém os principais dados de alunos encerrados e pendentes de encerramento, bem como a quantidade de escolas que se encontram com percentual de encerramento abaixo da média das escolas da regional.
+* Um **gráfico** contendo a evolução do número percentual de Encerramento para diferentes datas (as últimas cinco disponíveis no SIMADE).
+* Uma **tabela** com dados gerais absolutos e percentuais - por escola - de encerramento e que também se encontra disponível para downlod nos formatos **excel** e **pdf**
 
 Matrículas
 =====================================
@@ -132,13 +147,8 @@ escolas_abaixo <- nrow(df_mat_ent %>%
 valueBox(prettyNum(escolas_abaixo), color = "gold")
 ```
 
-
-Column {.sidebar data-width=400}
+Column {.sidebar data-width=300}
 -----------------------------------------------------------------------
-
-### **Para que serve este painel?**
-
-> Este painel foi desenvolvido para facilitar o monitoramento, pelas SRE, das atividades da virada de ano (2018 ~ 2019) que envolvem registros do SIMADE. Os dados são atualizados diariamente e trazem informações dos últimos cinco (5) dias do sistema.
 
 ### **Qual o período para realização da Matrícula dos alunos?**
 
@@ -212,7 +222,7 @@ tabela_escola_matricula <- df_mat_ent %>%
   arrange(PERCENTUAL_ENTURMADOS)
 
   
-datatable(tabela_escola, filter = 'top',  rownames = FALSE,
+datatable(tabela_escola_matricula, filter = 'top',  rownames = FALSE,
           extensions = 'Buttons', options = list(
                                                  dom = 'Bfrtip',
                                                  buttons = c('excel', 'pdf')),
@@ -372,7 +382,7 @@ tabela_escola_criacao <- df_cri_aut %>%
   arrange(PERCENTUAL_CRIADAS, PERCENTUAL_AUTORIZADAS)
 
   
-datatable(tabela_escola, filter = 'top',  rownames = FALSE,
+datatable(tabela_escola_criacao, filter = 'top',  rownames = FALSE,
           extensions = 'Buttons', options = list(
                                                  dom = 'Bfrtip',
                                                  buttons = c('excel', 'pdf')),
@@ -391,7 +401,7 @@ Column {data-height=150}
 ```{r}
 total_encerrados <- df_encer %>%
   filter(SRE == regional) %>% 
-  group_by(COD_ESCOLA, ESCOLA, DATA) %>%
+  group_by(SRE, COD_ESCOLA, ESCOLA, DATA) %>%
   summarize("TOTAL ENCERRADOS" = sum(QT_ALUNO_ENCERRADO),
             "TOTAL ENTURMADOS NO DIA 10/12" = sum(QT_ALUNO_ENTURMADO_ATIVO)) %>% 
   mutate("TOTAL ENTURMADOS NO DIA 10/12" = first(`TOTAL ENTURMADOS NO DIA 10/12`),
@@ -472,51 +482,25 @@ Column {.sidebar data-width=400}
 Column {.tabset} 
 -----------------------------------------------------------------------
 
-### Gráfico 1 - Nº de escolas por percentual de Enturmação
-
-```{r}
-p <- df_mat_ent %>%
-  filter(SRE == regional) %>% 
-  group_by(COD_ESCOLA, ESCOLA) %>%
-  summarize(TOTAL_MATRICULADOS = sum(QT_ALUNO_MATRICULADO),
-            TOTAL_ENTURMADOS = sum(QT_ALUNO_ENTURMADO)) %>% 
-  mutate(PERCENTUAL_ENTURMADOS = floor((TOTAL_ENTURMADOS/TOTAL_MATRICULADOS)*100)) %>% ungroup() %>% 
-  arrange(PERCENTUAL_ENTURMADOS) %>% 
-  mutate(Y = ave(PERCENTUAL_ENTURMADOS, PERCENTUAL_ENTURMADOS, FUN = seq_along),
-         text = paste(str_to_title(ESCOLA), "\n", "% de Alunos Enturmados: ", PERCENTUAL_ENTURMADOS, "%", sep="")) %>% 
-  filter(PERCENTUAL_ENTURMADOS > 80) %>% 
-  ggplot(aes(as.factor(PERCENTUAL_ENTURMADOS), Y)) +
-  geom_point(aes(text = text), size = 1.5, color="skyblue" ) +
-  xlab('Percentual de Enturmação') +
-  ylab('Nº de Escolas') +
-  theme_classic() +
-  theme(
-    legend.position="none",
-    axis.line.y = element_blank(),
-    axis.text=element_text(size=15))
-
-ggplotly(p, tooltip = "text") 
-```
-
-### Gráfico 2 - Evolução da Matrícula e Enturmação nos últimos 5 dias
+### Gráfico 1 - Evolução do Encerramento nos últimos 5 dias
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-graph2 <- df_mat_ent %>%
-  filter(SRE == regional) %>% 
-  group_by(DATA, NIVEL) %>%
-  summarize(TOTAL_MAT = sum(QT_ALUNO_MATRICULADO),
-            TOTAL_ENT = sum(QT_ALUNO_ENTURMADO)) %>% 
-  mutate(PERCENTUAL_ENTURMADOS = round((TOTAL_ENT/TOTAL_MAT)*100, digits = 2),
-         NIVEL_2 = case_when(NIVEL == "PRESENCIAL - ENSINO FUNDAMENTAL" ~ "EDUCAÇÃO JOVENS E ADULTOS",
-                           NIVEL == "PRESENCIAL - ENSINO MÉDIO" ~ "EDUCAÇÃO JOVENS E ADULTOS",
-                           TRUE ~ as.character(NIVEL))) %>%
-  filter(NIVEL_2 != "EDUCAÇÃO JOVENS E ADULTOS" & PERCENTUAL_ENTURMADOS > 0) %>% 
-  ggplot(aes(as.factor(day(DATA)), PERCENTUAL_ENTURMADOS)) +
-  geom_col(fill="steelblue") +
+graph2 <- total_encerrados %>%
+  filter(DATA != data_padrao_encerramento) %>% 
+  group_by(SRE, DATA) %>%
+  summarize(TOTAL_ENCERRADOS = sum(`TOTAL ENCERRADOS`),
+            TOTAL_ENTURMADOS = sum(`TOTAL ENTURMADOS NO DIA 10/12`)) %>% 
+  ungroup() %>% mutate(`% DE ENCERRADOS` = round((TOTAL_ENCERRADOS/TOTAL_ENTURMADOS)*100, digits = 2)) %>% 
+  arrange(desc(`% DE ENCERRADOS`)) %>% 
+  ggplot(aes(DATA, `% DE ENCERRADOS`)) +
+  geom_point(size = 1.5) +
+  geom_line(fill = "skyblue") +
   theme_economist() +
-  theme(axis.text.x = element_text(size = 9, angle = 50, hjust = 0)) +
-  geom_text(aes(label = PERCENTUAL_ENTURMADOS), position = position_dodge(0.9), vjust = 1.6, size = 3.5, color = "black") +
-  facet_wrap(.~ NIVEL_2)
+  ylim(0, 25) +
+  geom_text(aes(label = `% DE ENCERRADOS`),hjust=0, vjust=0) +
+  labs(title = "",
+       x = "Data",
+       y = "% de Encerrados")
 
 ggplotly(graph2)
 ```
@@ -524,20 +508,15 @@ ggplotly(graph2)
 ### Tabela - Total de alunos matriculados/enturmados (por escola)
 
 ```{r}
-tabela_escola_matricula <- df_mat_ent %>%
-  filter(SRE == regional) %>% 
-  group_by(COD_ESCOLA, ESCOLA) %>%
-  summarize(TOTAL_MATRICULADOS = sum(QT_ALUNO_MATRICULADO),
-            TOTAL_ENTURMADOS = sum(QT_ALUNO_ENTURMADO)) %>% 
-  mutate(PERCENTUAL_ENTURMADOS = floor((TOTAL_ENTURMADOS/TOTAL_MATRICULADOS)*100)) %>% ungroup() %>% 
-  arrange(PERCENTUAL_ENTURMADOS)
+tabela_escola <- total_encerrados %>%
+  filter(DATA == last(DATA)) %>% ungroup() %>% 
+  select(-SRE, -DATA)
 
-  
 datatable(tabela_escola, filter = 'top',  rownames = FALSE,
           extensions = 'Buttons', options = list(
                                                  dom = 'Bfrtip',
                                                  buttons = c('excel', 'pdf')),
-          colnames = c("CÓDIGO ESCOLA", "ESCOLA", "Nº DE MATRICULADOS", "Nº DE ENTURMADOS", "% DE ENTURMADOS"))  
+          colnames = c("CÓDIGO ESCOLA", "ESCOLA", "TOTAL DE ALUNOS ENCERRADOS", "TOTAL DE ALUNOS ENTURMADOS (DATA-BASE)", "% DE ALUNOS ENCERRADOS"))  
 ```
 
 
