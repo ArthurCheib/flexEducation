@@ -10,6 +10,7 @@ library(colorRamps)
 #Conversão da data no R para a data em formato numérico do Excel (contagem em dias):
 data_hoje <- Sys.Date()
 data_last5 <- (Sys.Date() - 5)
+data_padrao_encerramento <- as.Date("2018-12-10")
 
 # Conectando com o MySQL:
 con <- dbConnect(RMariaDB::MariaDB(),
@@ -40,9 +41,9 @@ df_cri_aut <- dbFetch(data_cr)
 dbClearResult(data_cr)
 
 #### Query para df encerramento:
-qry_03 <- paste0("SELECT SRE, COD_ESCOLA, ESCOLA, NIVEL, QT_TURMA_PA, QT_TURMA_CRIADA, QT_TURMA_AUTORIZADA, DATA ", 
+qry_03 <- paste0("SELECT SRE, COD_ESCOLA, ESCOLA, NIVEL, ETAPA, QT_ALUNO_ENTURMADO_ATIVO, QT_ALUNO_ENCERRADO, DATA ", 
                  "FROM TBL_ENCERRAMENTO ",
-                 "WHERE data ",
+                 "WHERE data = ", "'",data_padrao_encerramento, "'", " OR data ",
                  "BETWEEN ", "'",data_last5, "'", " AND ", "'", data_hoje, "'", ";")
 
 data_enc <- dbSendQuery(con, qry_03)
