@@ -1,11 +1,8 @@
-library(googledrive)
 library(dbConnect)
 library(RMariaDB)
 library(tidyverse)
 library(knitr)
 library(rstudioapi)
-library(grDevices)
-library(colorRamps)
 
 #Conversão da data no R para a data em formato numérico do Excel (contagem em dias):
 data_hoje <- Sys.Date()
@@ -65,4 +62,4 @@ for (regional in regionais) {
   rmarkdown::render(input = paste0(getwd(), "/relatorio_regional.Rmd"),
                     output_file = str_c("Quadro de Monitoramento - ", regional, ".html"),
                     output_dir = getwd())
-  }
+}

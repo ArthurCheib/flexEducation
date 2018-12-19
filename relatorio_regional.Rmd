@@ -15,22 +15,21 @@ library(tidyverse)
 library(ggthemes)
 library(knitr)
 library(DT)
-library(ggrepel)
 ```
 
 Introdução
 =====================================
 
-Column {.sidebar data-width=550}
+Column {.sidebar data-width=450}
 -----------------------------------------------------------------------
 
 ### **O que é este documento?**
 
-> Este documento consiste na reunião dos dados relevantes sobre os seguintes temas: (I) Matrícula e Enturmação; (II) Criação de Turmas; (III) Encerramento de Alunos.
+> Este documento reune dados relevantes sobre os seguintes temas: (I) Matrícula e Enturmação; (II) Criação de Turmas; (III) Encerramento de Alunos.
 
 ### **Para que ele foi criado?**
 
-> Este painel foi desenvolvido para facilitar o monitoramento, pelas SRE, das atividades da virada de ano (2018 ~ 2019) que envolvem registros do SIMADE.
+> Este painel foi desenvolvido para facilitar o monitoramento, pelas SRE, das atividades que envolvem registros do SIMADE.
 
 ### **A quem ele se destina?**
 
@@ -38,18 +37,18 @@ Column {.sidebar data-width=550}
 
 ### **Com que frequência ele será enviado?**
 
-> Durante o mês de Dezembro e até data limite - a ser estipulada - este painel será atualizado diariamente. 
+> Durante o mês de Dezembro e até data limite - a ser estipulada - este painel será atualizado ao menos 3x/semana. 
 
 Column {data-height=40}
 -----------------------------------------------------------------------
 
 ```{r}
-trinta <- "**INFORMAÇÕES RELEVANTES DE CADA PAINEL**"
+trinta <- "INFORMAÇÕES RELEVANTES DE CADA PAINEL"
 
 valueBox(value = trinta, color = "orange")
 ```
 
-Column {data-height=250}
+Column {data-height=260}
 -----------------------------------------------------------------------
 
 ### MATRÍCULA E ENTURMAÇÃO
@@ -57,10 +56,14 @@ Column {data-height=250}
 As informações referentes à Matrícula e Enturmação podem ser acessadas pelo painel superior e o seu conteúdo se divide em:
 
 * Uma **aba superior** que contém os principais dados de alunos matriculados e enturmados.
-* Dois **gráficos** contendo a quantidade de escolas por percentual de enturmação, sendo cada escola um ponto do gráfico.
-* Uma **tabela** com dados gerais - por escola -  do percentual de enturmados disponível para downlod nos formatos **excel** e **pdf**
+* Dois **gráficos*** contendo a quantidade de escolas por percentual de enturmação, sendo cada escola um ponto do gráfico
+* Uma **tabela** com dados gerais - por escola -  do percentual de enturmados disponível para downlod nos formatos **excel** e **pdf**.
 
-Column {data-height=355}
+> **Este relatório começará a ser enviado a partir do dia 20/12/2018.**
+
+> *O primeiro destes gráficos permite que o usuário dê um zoom em seus pontos ao clicar e arrastar o mouse sobre a área desejada. Para retorná-lo ao tamanho original é necessário clicar no ícone superior que aparece no próprio gráfico com o nome "Autoscale".
+
+Column {data-height=280}
 -----------------------------------------------------------------------
 
 ### CRIAÇÃO E AUTORIZAÇÃO DE TURMAS
@@ -68,10 +71,10 @@ Column {data-height=355}
 As informações referentes à Criação e Autorização de Turmas são acessadas pelo painel superior e o seu conteúdo se divide em:
 
 * Uma **aba superior** que contém os principais dados de turmas criadas e autorizadas na regional.
-* Um **gráfico** contendo a evolução do número absoluto de turmas no Plano de Atendimento, Criadas e Autorizadas para diferentes datas (as últimas cinco disponíveis no SIMADE).
-* Uma **tabela** com dados gerais - por escola - do percentual de turmas criadas e autorizadas e que também se encontra disponível para downlod nos formatos **excel** e **pdf**
+* Um **gráfico** contendo a evolução do número de turmas Criadas, Autorizadas e contidas no Plano de Atendimento para os últimos cinco dias.
+* Uma **tabela** com dados gerais, por escola, do percentual de turmas criadas e autorizadas - também disponível para downlod nos formatos **excel** e **pdf**.
 
-Column {data-height=355}
+Column {data-height=280}
 -----------------------------------------------------------------------
 
 ### ENCERRAMENTO DE ALUNOS
@@ -80,154 +83,156 @@ As informações referentes ao Encerramento de Alunos se encontram no painel super
 
 * Uma **aba superior** que contém os principais dados de alunos encerrados e pendentes de encerramento, bem como a quantidade de escolas que se encontram com percentual de encerramento abaixo da média das escolas da regional.
 * Um **gráfico** contendo a evolução do número percentual de Encerramento para diferentes datas (as últimas cinco disponíveis no SIMADE).
-* Uma **tabela** com dados gerais absolutos e percentuais - por escola - de encerramento e que também se encontra disponível para downlod nos formatos **excel** e **pdf**
+* Uma **tabela** com dados gerais absolutos e percentuais - por escola - de encerramento e que também se encontra disponível para downlod nos formatos **excel** e **pdf**.
 
-Matrículas
-=====================================
+<!-- Matrículas -->
+<!-- ===================================== -->
 
-Column {data-height=150}
------------------------------------------------------------------------
+<!-- Column {data-height=150} -->
+<!-- ----------------------------------------------------------------------- -->
 
-### % de Alunos Enturmados
+<!-- ### % de Alunos Enturmados -->
 
-```{r}
-total_matriculados <- df_mat_ent %>%
-  filter(SRE == regional) %>% 
-  top_n(1, wt = DATA) %>% 
-  group_by(SRE) %>% 
-  summarize(TOTAL = sum(QT_ALUNO_MATRICULADO)) %>% .[[2]]
+<!-- ```{r} -->
+<!-- total_matriculados <- df_mat_ent %>% -->
+<!--   filter(SRE == regional) %>% -->
+<!--   top_n(1, wt = DATA) %>% -->
+<!--   group_by(SRE) %>% -->
+<!--   summarize(TOTAL = sum(QT_ALUNO_MATRICULADO)) %>% .[[2]] -->
 
-total_enturmados <- df_mat_ent %>%
-  filter(SRE == regional) %>% 
-  top_n(1, wt = DATA) %>% 
-  group_by(SRE) %>% 
-  summarize(TOTAL = sum(QT_ALUNO_ENTURMADO)) %>% .[[2]]
+<!-- total_enturmados <- df_mat_ent %>% -->
+<!--   filter(SRE == regional) %>% -->
+<!--   top_n(1, wt = DATA) %>% -->
+<!--   group_by(SRE) %>% -->
+<!--   summarize(TOTAL = sum(QT_ALUNO_ENTURMADO)) %>% .[[2]] -->
 
-pct_enturmado <- round(100 * total_enturmados/total_matriculados)
+<!-- pct_enturmado <- round(100 * total_enturmados/total_matriculados) -->
 
-gauge(value = pct_enturmado,
-      min = 0,
-      max = 100,
-      sectors = gaugeSectors(success = c(85, 100),
-                             warning = c(50, 84),
-                             danger = c(0, 49)),
-      symbol = '%')
-```
+<!-- gauge(value = pct_enturmado, -->
+<!--       min = 0, -->
+<!--       max = 100, -->
+<!--       sectors = gaugeSectors(success = c(85, 100), -->
+<!--                              warning = c(50, 84), -->
+<!--                              danger = c(0, 49)), -->
+<!--       symbol = '%') -->
+<!-- ``` -->
 
-### ALUNOS MATRICULADOS
+<!-- ### TOTAL DE ALUNOS MATRICULADOS -->
 
-```{r}
-valueBox(prettyNum(total_matriculados, big.mark = "."), color = "purple")
-```
+<!-- ```{r} -->
+<!-- valueBox(prettyNum(total_matriculados, big.mark = ".")) -->
+<!-- ``` -->
 
-### ALUNOS ENTURMADOS
+<!-- ### TOTAL DE ALUNOS ENTURMADOS -->
 
-```{r}
-valueBox(prettyNum(total_enturmados, big.mark = "."), color = "purple")
-```
+<!-- ```{r} -->
+<!-- valueBox(prettyNum(total_enturmados, big.mark = ".")) -->
+<!-- ``` -->
 
-### TOTAL DE ESCOLAS ESTADUAIS NA REGIONAL
+<!-- ### TOTAL DE ESCOLAS ESTADUAIS NA REGIONAL -->
 
-```{r}
-valueBox(length(unique(df_mat_ent %>% filter(SRE == regional) %>% .[[2]])), color = "gold")
-```
+<!-- ```{r} -->
+<!-- valueBox(length(unique(df_mat_ent %>% filter(SRE == regional) %>% .[[2]])), color = "orange") -->
+<!-- ``` -->
 
-### ESCOLAS ABAIXO DA MÉDIA DE ENTURMAÇÃO DA SRE
+<!-- ### Nº DE ESCOLAS ABAIXO DA MÉDIA DE ENTURMAÇÃO DA SRE -->
 
-```{r}
-escolas_abaixo <- nrow(df_mat_ent %>%
-  filter(SRE == regional) %>% 
-  group_by(COD_ESCOLA, ESCOLA) %>%
-  summarize(TOTAL_MATRICULADOS = sum(QT_ALUNO_MATRICULADO),
-            TOTAL_ENTURMADOS = sum(QT_ALUNO_ENTURMADO)) %>% 
-  mutate(PERCENTUAL_ENTURMADOS = floor((TOTAL_ENTURMADOS/TOTAL_MATRICULADOS)*100)) %>% ungroup() %>% 
-  arrange(PERCENTUAL_ENTURMADOS) %>%
-  filter(PERCENTUAL_ENTURMADOS <= pct_enturmado))
+<!-- ```{r} -->
+<!-- escolas_abaixo <- nrow(df_mat_ent %>% -->
+<!--   filter(SRE == regional) %>% -->
+<!--   group_by(COD_ESCOLA, ESCOLA) %>% -->
+<!--   summarize(TOTAL_MATRICULADOS = sum(QT_ALUNO_MATRICULADO), -->
+<!--             TOTAL_ENTURMADOS = sum(QT_ALUNO_ENTURMADO)) %>% -->
+<!--   mutate(PERCENTUAL_ENTURMADOS = floor((TOTAL_ENTURMADOS/TOTAL_MATRICULADOS)*100)) %>% ungroup() %>% -->
+<!--   arrange(PERCENTUAL_ENTURMADOS) %>% -->
+<!--   filter(PERCENTUAL_ENTURMADOS <= pct_enturmado)) -->
 
-valueBox(prettyNum(escolas_abaixo), color = "gold")
-```
+<!-- valueBox(prettyNum(escolas_abaixo), color = "orange") -->
+<!-- ``` -->
 
-Column {.sidebar data-width=300}
------------------------------------------------------------------------
+<!-- Column {.sidebar data-width=350} -->
+<!-- ----------------------------------------------------------------------- -->
 
-### **Qual o período para realização da Matrícula dos alunos?**
+<!-- ### **Qual o período para realização da Matrícula dos alunos?** -->
 
-> A matrícula dos alunos da Rede Pública Estadual deverá ser feita até **XX/XX/XXXX**
+<!-- > A matrícula dos alunos da Rede Pública Estadual deverá ser feita até **04/01/2019** -->
 
-### **Qual o prazo para realização da Enturmação dos alunos?**
+<!-- ### **Qual o prazo para realização da Enturmação dos alunos?** -->
 
-> O processo de enturmação estará disponível a partir do dia **XX/XX/XXXX** e deverá ser feito até **XX/XX/XXXX**
+<!-- > O processo de enturmação estará disponível a partir do dia **19/12/2018** e deverá ser feito até **04/01/2019** -->
 
-Column {.tabset} 
------------------------------------------------------------------------
+<!-- Conforme ofício Circular SIE nº 17/2018. -->
 
-### Gráfico 1 - Nº de escolas por percentual de Enturmação
+<!-- Column {.tabset} -->
+<!-- ----------------------------------------------------------------------- -->
 
-```{r}
-p <- df_mat_ent %>%
-  filter(SRE == regional) %>% 
-  group_by(COD_ESCOLA, ESCOLA) %>%
-  summarize(TOTAL_MATRICULADOS = sum(QT_ALUNO_MATRICULADO),
-            TOTAL_ENTURMADOS = sum(QT_ALUNO_ENTURMADO)) %>% 
-  mutate(PERCENTUAL_ENTURMADOS = floor((TOTAL_ENTURMADOS/TOTAL_MATRICULADOS)*100)) %>% ungroup() %>% 
-  arrange(PERCENTUAL_ENTURMADOS) %>% 
-  mutate(Y = ave(PERCENTUAL_ENTURMADOS, PERCENTUAL_ENTURMADOS, FUN = seq_along),
-         text = paste(str_to_title(ESCOLA), "\n", "% de Alunos Enturmados: ", PERCENTUAL_ENTURMADOS, "%", sep="")) %>% 
-  filter(PERCENTUAL_ENTURMADOS > 80) %>% 
-  ggplot(aes(as.factor(PERCENTUAL_ENTURMADOS), Y)) +
-  geom_point(aes(text = text), size = 1.5, color="skyblue" ) +
-  xlab('Percentual de Enturmação') +
-  ylab('Nº de Escolas') +
-  theme_classic() +
-  theme(
-    legend.position="none",
-    axis.line.y = element_blank(),
-    axis.text=element_text(size=15))
+<!-- ### Gráfico 1 - Nº de escolas por percentual de Enturmação -->
 
-ggplotly(p, tooltip = "text") 
-```
+<!-- ```{r} -->
+<!-- p <- df_mat_ent %>% -->
+<!--   filter(SRE == regional) %>% -->
+<!--   group_by(COD_ESCOLA, ESCOLA) %>% -->
+<!--   summarize(TOTAL_MATRICULADOS = sum(QT_ALUNO_MATRICULADO), -->
+<!--             TOTAL_ENTURMADOS = sum(QT_ALUNO_ENTURMADO)) %>% -->
+<!--   mutate(PERCENTUAL_ENTURMADOS = floor((TOTAL_ENTURMADOS/TOTAL_MATRICULADOS)*100)) %>% ungroup() %>% -->
+<!--   arrange(PERCENTUAL_ENTURMADOS) %>% -->
+<!--   mutate(Y = ave(PERCENTUAL_ENTURMADOS, PERCENTUAL_ENTURMADOS, FUN = seq_along), -->
+<!--          text = paste(str_to_title(ESCOLA), "\n", "% de Alunos Enturmados: ", PERCENTUAL_ENTURMADOS, "%", sep="")) %>% -->
+<!--   filter(PERCENTUAL_ENTURMADOS > 80) %>% -->
+<!--   ggplot(aes(as.factor(PERCENTUAL_ENTURMADOS), Y)) + -->
+<!--   geom_point(aes(text = text), size = 1.5, color="skyblue" ) + -->
+<!--   xlab('Percentual de Enturmação') + -->
+<!--   ylab('Nº de Escolas') + -->
+<!--   theme_classic() + -->
+<!--   theme( -->
+<!--     legend.position="none", -->
+<!--     axis.line.y = element_blank(), -->
+<!--     axis.text=element_text(size=15)) -->
 
-### Gráfico 2 - Evolução da Matrícula e Enturmação nos últimos 5 dias
+<!-- ggplotly(p, tooltip = "text") -->
+<!-- ``` -->
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-graph2 <- df_mat_ent %>%
-  filter(SRE == regional) %>% 
-  group_by(DATA, NIVEL) %>%
-  summarize(TOTAL_MAT = sum(QT_ALUNO_MATRICULADO),
-            TOTAL_ENT = sum(QT_ALUNO_ENTURMADO)) %>% 
-  mutate(PERCENTUAL_ENTURMADOS = round((TOTAL_ENT/TOTAL_MAT)*100, digits = 2),
-         NIVEL_2 = case_when(NIVEL == "PRESENCIAL - ENSINO FUNDAMENTAL" ~ "EDUCAÇÃO JOVENS E ADULTOS",
-                           NIVEL == "PRESENCIAL - ENSINO MÉDIO" ~ "EDUCAÇÃO JOVENS E ADULTOS",
-                           TRUE ~ as.character(NIVEL))) %>%
-  filter(NIVEL_2 != "EDUCAÇÃO JOVENS E ADULTOS" & PERCENTUAL_ENTURMADOS > 0) %>% 
-  ggplot(aes(as.factor(day(DATA)), PERCENTUAL_ENTURMADOS)) +
-  geom_col(fill="steelblue") +
-  theme_economist() +
-  theme(axis.text.x = element_text(size = 9, angle = 50, hjust = 0)) +
-  geom_text(aes(label = PERCENTUAL_ENTURMADOS), position = position_dodge(0.9), vjust = 1.6, size = 3.5, color = "black") +
-  facet_wrap(.~ NIVEL_2)
+<!-- ### Gráfico 2 - Evolução da Matrícula e Enturmação nos últimos 5 dias -->
 
-ggplotly(graph2)
-```
+<!-- ```{r echo=FALSE, message=FALSE, warning=FALSE} -->
+<!-- graph2 <- df_mat_ent %>% -->
+<!--   filter(SRE == regional) %>% -->
+<!--   group_by(DATA, NIVEL) %>% -->
+<!--   summarize(TOTAL_MAT = sum(QT_ALUNO_MATRICULADO), -->
+<!--             TOTAL_ENT = sum(QT_ALUNO_ENTURMADO)) %>% -->
+<!--   mutate(PERCENTUAL_ENTURMADOS = round((TOTAL_ENT/TOTAL_MAT)*100, digits = 2), -->
+<!--          NIVEL_2 = case_when(NIVEL == "PRESENCIAL - ENSINO FUNDAMENTAL" ~ "EDUCAÇÃO JOVENS E ADULTOS", -->
+<!--                            NIVEL == "PRESENCIAL - ENSINO MÉDIO" ~ "EDUCAÇÃO JOVENS E ADULTOS", -->
+<!--                            TRUE ~ as.character(NIVEL))) %>% -->
+<!--   filter(NIVEL_2 != "EDUCAÇÃO JOVENS E ADULTOS" & PERCENTUAL_ENTURMADOS > 0) %>% -->
+<!--   ggplot(aes(as.factor(day(DATA)), PERCENTUAL_ENTURMADOS)) + -->
+<!--   geom_col(fill="steelblue") + -->
+<!--   theme_economist() + -->
+<!--   theme(axis.text.x = element_text(size = 9, angle = 50, hjust = 0)) + -->
+<!--   geom_text(aes(label = PERCENTUAL_ENTURMADOS), position = position_dodge(0.9), vjust = 1.6, size = 3.5, color = "black") + -->
+<!--   facet_wrap(.~ NIVEL_2) -->
 
-### Tabela - Total de alunos matriculados/enturmados (por escola)
+<!-- ggplotly(graph2) -->
+<!-- ``` -->
 
-```{r}
-tabela_escola_matricula <- df_mat_ent %>%
-  filter(SRE == regional) %>% 
-  group_by(COD_ESCOLA, ESCOLA) %>%
-  summarize(TOTAL_MATRICULADOS = sum(QT_ALUNO_MATRICULADO),
-            TOTAL_ENTURMADOS = sum(QT_ALUNO_ENTURMADO)) %>% 
-  mutate(PERCENTUAL_ENTURMADOS = floor((TOTAL_ENTURMADOS/TOTAL_MATRICULADOS)*100)) %>% ungroup() %>% 
-  arrange(PERCENTUAL_ENTURMADOS)
+<!-- ### Tabela - Total de alunos matriculados/enturmados (por escola) -->
 
-  
-datatable(tabela_escola_matricula, filter = 'top',  rownames = FALSE,
-          extensions = 'Buttons', options = list(
-                                                 dom = 'Bfrtip',
-                                                 buttons = c('excel', 'pdf')),
-          colnames = c("CÓDIGO ESCOLA", "ESCOLA", "Nº DE MATRICULADOS", "Nº DE ENTURMADOS", "% DE ENTURMADOS"))  
-```
+<!-- ```{r} -->
+<!-- tabela_escola_matricula <- df_mat_ent %>% -->
+<!--   filter(SRE == regional) %>% -->
+<!--   group_by(COD_ESCOLA, ESCOLA, NIVEL) %>% -->
+<!--   summarize(TOTAL_MATRICULADOS = sum(QT_ALUNO_MATRICULADO), -->
+<!--             TOTAL_ENTURMADOS = sum(QT_ALUNO_ENTURMADO)) %>% -->
+<!--   mutate(PERCENTUAL_ENTURMADOS = floor((TOTAL_ENTURMADOS/TOTAL_MATRICULADOS)*100)) %>% ungroup() %>% -->
+<!--   arrange(PERCENTUAL_ENTURMADOS) -->
+
+
+<!-- datatable(tabela_escola_matricula,  rownames = FALSE, -->
+<!--           extensions = 'Buttons', options = list( -->
+<!--                                                  dom = 'Bfrtip', -->
+<!--                                                  buttons = c('excel', 'pdf')), -->
+<!--           colnames = c("CÓDIGO ESCOLA", "ESCOLA", "NÍVEL", "Nº DE MATRICULADOS", "Nº DE ENTURMADOS", "% DE ENTURMADOS")) -->
+<!-- ``` -->
 
 
 Turmas
@@ -281,19 +286,25 @@ gauge(value = pct_autorizadas,
       symbol = '%')
 ```
 
-### TURMAS CRIADAS
+### TOTAL DE TURMAS NO PLANO DE ATENDIMENTO
 
 ```{r}
-valueBox(prettyNum(total_turmas_criadas, big.mark = "."), color = "gold")
+valueBox(prettyNum(total_turmas_pa, big.mark = "."))
 ```
 
-### TURMAS AUTORIZADAS
+### TOTAL DE TURMAS CRIADAS
 
 ```{r}
-valueBox(prettyNum(total_turmas_autorizadas, big.mark = "."), color = "gold")
+valueBox(prettyNum(total_turmas_criadas, big.mark = "."))
 ```
 
-### ESCOLAS ABAIXO DA MÉDIA DE CRIAÇÃO
+### TOTAL DE TURMAS AUTORIZADAS
+
+```{r}
+valueBox(prettyNum(total_turmas_autorizadas, big.mark = "."))
+```
+
+### Nº DE ESCOLAS ABAIXO DA MÉDIA DE CRIAÇÃO
 
 ```{r}
 escolas_abaixo_criacao <- nrow(df_cri_aut %>%
@@ -309,36 +320,34 @@ valueBox(prettyNum(escolas_abaixo), color = "orange",
          href = '#pontos-de-alerta')
 ```
 
-### ESCOLAS ABAIXO DA MÉDIA DE AUTORIZAÇÃO
+<!-- ### ESCOLAS ABAIXO DA MÉDIA DE AUTORIZAÇÃO -->
 
-```{r}
-escolas_abaixo <- nrow(df_cri_aut %>%
-  filter(SRE == regional) %>% 
-  group_by(COD_ESCOLA, ESCOLA) %>%
-  summarize(TOTAL_CRIADAS = sum(QT_TURMA_CRIADA, na.rm = T),
-            TOTAL_AUTORIZADAS = sum(QT_TURMA_AUTORIZADA)) %>% 
-  mutate(PERCENTUAL_AUTORIZADAS = round((TOTAL_CRIADAS/TOTAL_CRIADAS)*100)) %>% ungroup() %>% 
-  arrange(PERCENTUAL_AUTORIZADAS) %>%
-  filter(PERCENTUAL_AUTORIZADAS <= pct_autorizadas))
+<!-- ```{r} -->
+<!-- escolas_abaixo <- nrow(df_cri_aut %>% -->
+<!--   filter(SRE == regional) %>%  -->
+<!--   group_by(COD_ESCOLA, ESCOLA) %>% -->
+<!--   summarize(TOTAL_CRIADAS = sum(QT_TURMA_CRIADA, na.rm = T), -->
+<!--             TOTAL_AUTORIZADAS = sum(QT_TURMA_AUTORIZADA)) %>%  -->
+<!--   mutate(PERCENTUAL_AUTORIZADAS = round((TOTAL_CRIADAS/TOTAL_CRIADAS)*100)) %>% ungroup() %>%  -->
+<!--   arrange(PERCENTUAL_AUTORIZADAS) %>% -->
+<!--   filter(PERCENTUAL_AUTORIZADAS <= pct_autorizadas)) -->
 
-valueBox(prettyNum(escolas_abaixo), color = "orange")
-```
+<!-- valueBox(prettyNum(escolas_abaixo), color = "orange") -->
+<!-- ``` -->
 
 
-Column {.sidebar data-width=400}
+Column {.sidebar data-width=350}
 -----------------------------------------------------------------------
 
-### **Para que serve este painel?**
+### **Qual a data de início para criação de turmas, conforme Plano de Atendimento 2019?**
 
-> Este painel foi desenvolvido para facilitar o monitoramento, pelas SRE, das atividades da virada de ano (2018 ~ 2019) que envolvem registros do SIMADE. Os dados são atualizados diariamente e trazem informações dos últimos cinco (5) dias do sistema.
+> A criação das turmas da Rede Pública Estadual está disponível para realização desde **13/12/2018**
 
-### **Qual o período para realização da Matrícula dos alunos?**
+### **Qual o período para solicitação de autorização de funcionamento de turmas para 2019?**
 
-> A matrícula dos alunos da Rede Pública Estadual deverá ser feita até **XX/XX/XXXX**
+> A solicitação de autorização de turmas estará disponível a partir do dia **19/12/2018** e será suspensa no dia **26/12/2018**
 
-### **Qual o prazo para realização da Enturmação dos alunos?**
-
-> O processo de enturmação estará disponível a partir do dia **XX/XX/XXXX** e deverá ser feito até **XX/XX/XXXX**
+Conforme ofício Circular SIE nº 17/2018.
 
 Column {.tabset} 
 -----------------------------------------------------------------------
@@ -349,6 +358,7 @@ Column {.tabset}
 p <- df_cri_aut %>%
   filter(SRE == regional,
          NIVEL %in% c("ENSINO FUNDAMENTAL", "ENSINO MÉDIO", "PRESENCIAL - ENSINO FUNDAMENTAL", "PRESENCIAL - ENSINO MÉDIO")) %>% 
+  filter(DATA != "2018-12-14") %>% 
     group_by(SRE, DATA) %>%
   summarize('TURMAS PLANO DE ATENDIMENTO' = sum(QT_TURMA_PA, na.rm = T),
             'TOTAL CRIADAS' = sum(QT_TURMA_CRIADA),
@@ -362,7 +372,9 @@ p <- df_cri_aut %>%
   theme(
     legend.position="bottom",
     axis.line.y = element_blank(),
-    axis.text=element_text(size=15))
+    axis.text=element_text(size=15),
+    axis.text.x = element_text(size = 9, angle = 50, hjust = 1)) +
+  scale_x_date(date_breaks = "1 day")
 
 ggplotly(p) 
 ```
@@ -372,21 +384,21 @@ ggplotly(p)
 ```{r}
 tabela_escola_criacao <- df_cri_aut %>%
   filter(SRE == regional) %>% 
-  group_by(COD_ESCOLA, ESCOLA) %>%
+  group_by(COD_ESCOLA, ESCOLA, NIVEL) %>%
   summarize(TOTAL_PA = sum(QT_TURMA_PA, na.rm = T),
             TOTAL_CRIADAS = sum(QT_TURMA_CRIADA),
             TOTAL_AUTORIZADAS = sum(QT_TURMA_AUTORIZADA)) %>%  
-  mutate(PERCENTUAL_CRIADAS = floor((TOTAL_CRIADAS/TOTAL_CRIADAS)*100),
+  mutate(PERCENTUAL_CRIADAS = floor((TOTAL_CRIADAS/TOTAL_PA)*100),
        PERCENTUAL_AUTORIZADAS = floor((TOTAL_CRIADAS/TOTAL_CRIADAS)*100)) %>% ungroup() %>%
   select(-TOTAL_PA, -TOTAL_CRIADAS, -TOTAL_AUTORIZADAS) %>% 
   arrange(PERCENTUAL_CRIADAS, PERCENTUAL_AUTORIZADAS)
 
   
-datatable(tabela_escola_criacao, filter = 'top',  rownames = FALSE,
+datatable(tabela_escola_criacao,  rownames = FALSE,
           extensions = 'Buttons', options = list(
                                                  dom = 'Bfrtip',
                                                  buttons = c('excel', 'pdf')),
-          colnames = c("CÓDIGO ESCOLA", "ESCOLA", "% DE TURMAS CRIADAS", "% DE TURMAS AUTORIZADAS"))  
+          colnames = c("CÓDIGO ESCOLA", "ESCOLA", "NÍVEL", "% DE TURMAS CRIADAS", "% DE TURMAS AUTORIZADAS"))  
 ```
 
 
@@ -426,7 +438,7 @@ pct_encerrado <- total_encerrados %>%
   group_by(DATA) %>% 
   summarize(`TOTAL ENCERRADOS` = sum(`TOTAL ENCERRADOS`),
             TOTAL_ENTURMADOS = sum(`TOTAL ENTURMADOS NO DIA 10/12`)) %>% 
-  ungroup() %>% mutate(TOTAL = round((`TOTAL ENCERRADOS`/TOTAL_ENTURMADOS)*100, digits = 2)) %>% .[[4]]
+  ungroup() %>% mutate(TOTAL = round((`TOTAL ENCERRADOS`/TOTAL_ENTURMADOS)*100, digits = 1)) %>% .[[4]]
 
 gauge(value = pct_encerrado,
       min = 0,
@@ -437,16 +449,16 @@ gauge(value = pct_encerrado,
       symbol = '%')
 ```
 
-### ALUNOS ENCERRADOS
+### TOTAL DE ALUNOS ENCERRADOS
 
 ```{r}
-valueBox(prettyNum(alunos_encerrados, big.mark = "."), color = "brown")
+valueBox(prettyNum(alunos_encerrados, big.mark = "."))
 ```
 
-### ALUNOS ALUNOS PENDENTES DE ENCERRAMENTO
+### TOTAL DE ALUNOS PENDENTES DE ENCERRAMENTO
 
 ```{r}
-valueBox(prettyNum((alunos_enturmados - alunos_encerrados), big.mark = "."), color = "brown")
+valueBox(prettyNum((alunos_enturmados - alunos_encerrados), big.mark = "."))
 ```
 
 ### ESCOLAS ABAIXO DA MÉDIA DE ENCERRAMENTO DA SRE
@@ -460,24 +472,16 @@ escolas_abaixo <- nrow(total_encerrados %>%
   arrange(desc(`% DE ENCERRADOS`)) %>%
   filter(`% DE ENCERRADOS` <= pct_encerrado))
 
-valueBox(prettyNum(escolas_abaixo), color = "blue")
+valueBox(prettyNum(escolas_abaixo), color = "orange")
 ```
 
 
-Column {.sidebar data-width=400}
+Column {.sidebar data-width=350}
 -----------------------------------------------------------------------
 
-### **Para que serve este painel?**
+### **Qual a data para realização do Encerramento dos alunos?**
 
-> Este painel foi desenvolvido para facilitar o monitoramento, pelas SRE, das atividades da virada de ano (2018 ~ 2019) que envolvem registros do SIMADE. Os dados são atualizados diariamente e trazem informações dos últimos cinco (5) dias do sistema.
-
-### **Qual o período para realização da Matrícula dos alunos?**
-
-> A matrícula dos alunos da Rede Pública Estadual deverá ser feita até **XX/XX/XXXX**
-
-### **Qual o prazo para realização da Enturmação dos alunos?**
-
-> O processo de enturmação estará disponível a partir do dia **XX/XX/XXXX** e deverá ser feito até **XX/XX/XXXX**
+> O encerramento dos alunos da Rede Pública Estadual deverá ser feita até **04/01/2019**
 
 Column {.tabset} 
 -----------------------------------------------------------------------
@@ -496,23 +500,23 @@ graph2 <- total_encerrados %>%
   geom_point(size = 1.5) +
   geom_line(fill = "skyblue") +
   theme_economist() +
-  ylim(0, 25) +
   geom_text(aes(label = `% DE ENCERRADOS`),hjust=0, vjust=0) +
   labs(title = "",
        x = "Data",
-       y = "% de Encerrados")
+       y = "% de Encerrados") +
+  scale_x_date(date_breaks = "1 day")
 
 ggplotly(graph2)
 ```
 
-### Tabela - Total de alunos matriculados/enturmados (por escola)
+### Tabela - Total de alunos encerrados (por escola)
 
 ```{r}
 tabela_escola <- total_encerrados %>%
   filter(DATA == last(DATA)) %>% ungroup() %>% 
   select(-SRE, -DATA)
 
-datatable(tabela_escola, filter = 'top',  rownames = FALSE,
+datatable(tabela_escola,  rownames = FALSE,
           extensions = 'Buttons', options = list(
                                                  dom = 'Bfrtip',
                                                  buttons = c('excel', 'pdf')),
@@ -520,51 +524,51 @@ datatable(tabela_escola, filter = 'top',  rownames = FALSE,
 ```
 
 
-Pontos de Alerta
-=====================================
+<!-- Pontos de Alerta -->
+<!-- ===================================== -->
 
-Column {.sidebar data-width=400}
------------------------------------------------------------------------
+<!-- Column {.sidebar data-width=400} -->
+<!-- ----------------------------------------------------------------------- -->
 
-### **O que são os pontos de alerta?**
+<!-- ### **O que são os pontos de alerta?** -->
 
-> Pontos de alerta são escolas que tem apresentado percentual abaixo da média das escolas da regional no que tange os registros (matrícula, enturmação, encerramento) do SIMADE.
+<!-- > Pontos de alerta são escolas que tem apresentado percentual abaixo da média das escolas da regional no que tange os registros (matrícula, enturmação, encerramento) do SIMADE. -->
 
-Obs: Os dados são atualizados diariamente e trazem informações dos últimos cinco (5) dias do sistema.
+<!-- Obs: Os dados são atualizados diariamente e trazem informações dos últimos cinco (5) dias do sistema. -->
 
-Column {} 
------------------------------------------------------------------------
+<!-- Column {} -->
+<!-- ----------------------------------------------------------------------- -->
 
-### Tabela - Total de turmas criadas/autorizadas (por escola)
+<!-- ### Tabela - Total de turmas criadas/autorizadas (por escola) -->
 
-```{r}
-escolas_abaixo_autorizacao <- df_cri_aut %>%
-  filter(SRE == regional) %>% 
-  group_by(COD_ESCOLA, ESCOLA) %>%
-  summarize(TOTAL_CRIADAS = sum(QT_TURMA_CRIADA, na.rm = T),
-            TOTAL_AUTORIZADAS = sum(QT_TURMA_AUTORIZADA)) %>% 
-  mutate(PERCENTUAL_AUTORIZADAS = round((TOTAL_CRIADAS/TOTAL_CRIADAS)*100)) %>% ungroup() %>% 
-  arrange(PERCENTUAL_AUTORIZADAS) %>%
-  filter(PERCENTUAL_AUTORIZADAS <= pct_autorizadas)
+<!-- ```{r} -->
+<!-- escolas_abaixo_autorizacao <- df_cri_aut %>% -->
+<!--   filter(SRE == regional) %>% -->
+<!--   group_by(COD_ESCOLA, ESCOLA) %>% -->
+<!--   summarize(TOTAL_CRIADAS = sum(QT_TURMA_CRIADA, na.rm = T), -->
+<!--             TOTAL_AUTORIZADAS = sum(QT_TURMA_AUTORIZADA)) %>% -->
+<!--   mutate(PERCENTUAL_AUTORIZADAS = round((TOTAL_CRIADAS/TOTAL_CRIADAS)*100)) %>% ungroup() %>% -->
+<!--   arrange(PERCENTUAL_AUTORIZADAS) %>% -->
+<!--   filter(PERCENTUAL_AUTORIZADAS <= pct_autorizadas) -->
 
-escolas_abaixo_enturmacao <- df_mat_ent %>%
-  filter(SRE == regional) %>% 
-  group_by(COD_ESCOLA, ESCOLA) %>%
-  summarize(TOTAL_MATRICULADOS = sum(QT_ALUNO_MATRICULADO),
-            TOTAL_ENTURMADOS = sum(QT_ALUNO_ENTURMADO)) %>% 
-  mutate(PERCENTUAL_ENTURMADOS = floor((TOTAL_ENTURMADOS/TOTAL_MATRICULADOS)*100)) %>% ungroup() %>% 
-  arrange(PERCENTUAL_ENTURMADOS) %>%
-  filter(PERCENTUAL_ENTURMADOS <= pct_enturmado)
+<!-- escolas_abaixo_enturmacao <- df_mat_ent %>% -->
+<!--   filter(SRE == regional) %>% -->
+<!--   group_by(COD_ESCOLA, ESCOLA) %>% -->
+<!--   summarize(TOTAL_MATRICULADOS = sum(QT_ALUNO_MATRICULADO), -->
+<!--             TOTAL_ENTURMADOS = sum(QT_ALUNO_ENTURMADO)) %>% -->
+<!--   mutate(PERCENTUAL_ENTURMADOS = floor((TOTAL_ENTURMADOS/TOTAL_MATRICULADOS)*100)) %>% ungroup() %>% -->
+<!--   arrange(PERCENTUAL_ENTURMADOS) %>% -->
+<!--   filter(PERCENTUAL_ENTURMADOS <= pct_enturmado) -->
 
-tabela_alerta <- escolas_abaixo_enturmacao %>% 
-  left_join(escolas_abaixo_autorizacao, by = "COD_ESCOLA") %>% 
-  na.omit() %>% 
-  select(-ESCOLA.y, -TOTAL_MATRICULADOS, -TOTAL_ENTURMADOS)
+<!-- tabela_alerta <- escolas_abaixo_enturmacao %>% -->
+<!--   left_join(escolas_abaixo_autorizacao, by = "COD_ESCOLA") %>% -->
+<!--   na.omit() %>% -->
+<!--   select(-ESCOLA.y, -TOTAL_MATRICULADOS, -TOTAL_ENTURMADOS) -->
 
-datatable(tabela_alerta, filter = 'top',  rownames = FALSE,
-          extensions = 'Buttons', options = list(
-                                                 dom = 'Bfrtip',
-                                                 buttons = c('excel', 'pdf')),
-          colnames = c("CÓDIGO ESCOLA", "ESCOLA", "% DE ALUNOS ENTURMADOS",
-                       "% DE TURMAS CRIADAS", "% DE TURMAS AUTORIZADAS"))  
-```
+<!-- datatable(tabela_alerta, filter = 'top',  rownames = FALSE, -->
+<!--           extensions = 'Buttons', options = list( -->
+<!--                                                  dom = 'Bfrtip', -->
+<!--                                                  buttons = c('excel', 'pdf')), -->
+<!--           colnames = c("CÓDIGO ESCOLA", "ESCOLA", "% DE ALUNOS ENTURMADOS", -->
+<!--                        "% DE TURMAS CRIADAS", "% DE TURMAS AUTORIZADAS")) -->
+<!-- ``` -->
