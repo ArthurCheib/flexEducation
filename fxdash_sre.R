@@ -4,6 +4,8 @@ library(tidyverse)
 library(knitr)
 library(rstudioapi)
 
+# CTRL+SHIFT+H: selecione como o seu diretório aquele qu contiver o arquivo "relatorio_regional.Rmd"
+
 #Conversão da data no R para a data em formato numérico do Excel (contagem em dias):
 data_hoje <- Sys.Date()
 data_last5 <- (Sys.Date() - 5)
@@ -46,11 +48,6 @@ qry_03 <- paste0("SELECT SRE, COD_ESCOLA, ESCOLA, NIVEL, ETAPA, QT_ALUNO_ENTURMA
 data_enc <- dbSendQuery(con, qry_03)
 df_encer <- dbFetch(data_enc)
 dbClearResult(data_enc)
-
-# RENDERIZATION
-rmarkdown::render(input = paste0(getwd(), "/relatorio_regional.Rmd"),
-       output_file = "relatorio.html",
-       output_dir = getwd())
 
 dbDisconnect(con)
 
