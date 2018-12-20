@@ -177,7 +177,7 @@ p <- df_mat_ent %>%
   mutate(Y = ave(PERCENTUAL_ENTURMADOS, PERCENTUAL_ENTURMADOS, FUN = seq_along),
          text = paste(str_to_title(ESCOLA), "\n", "% de Alunos Enturmados: ", PERCENTUAL_ENTURMADOS, "%", sep="")) %>%
   filter(PERCENTUAL_ENTURMADOS > 80) %>%
-  ggplot(aes(as.factor(PERCENTUAL_ENTURMADOS), Y)) +
+  ggplot(aes(as.factor(PERCENTUAL_ENTURMADOS), Y, size = QT_ALUNO_MATRICULADO)) +
   geom_point(aes(text = text), size = 1.5, color="skyblue" ) +
   xlab('Percentual de Enturmação') +
   ylab('Nº de Escolas') +
@@ -218,18 +218,16 @@ ggplotly(graph2)
 ```{r}
 tabela_escola_matricula <- df_mat_ent %>%
   filter(SRE == regional) %>%
-  group_by(COD_ESCOLA, ESCOLA, NIVEL) %>%
+  group_by(COD_ESCOLA, ESCOLA, NIVEL, ETAPA) %>%
   summarize(TOTAL_MATRICULADOS = sum(QT_ALUNO_MATRICULADO),
             TOTAL_ENTURMADOS = sum(QT_ALUNO_ENTURMADO)) %>%
   mutate(PERCENTUAL_ENTURMADOS = floor((TOTAL_ENTURMADOS/TOTAL_MATRICULADOS)*100)) %>% ungroup() %>%
   arrange(PERCENTUAL_ENTURMADOS)
-
-
 datatable(tabela_escola_matricula,  rownames = FALSE,
           extensions = 'Buttons', options = list(
                                                  dom = 'Bfrtip',
                                                  buttons = c('excel', 'pdf')),
-          colnames = c("CÓDIGO ESCOLA", "ESCOLA", "NÍVEL", "Nº DE MATRICULADOS", "Nº DE ENTURMADOS", "% DE ENTURMADOS"))
+          colnames = c("CÓDIGO ESCOLA", "ESCOLA", "NÍVEL", "ETAPA", "Nº DE MATRICULADOS", "Nº DE ENTURMADOS", "% DE ENTURMADOS"))
 ```
 
 
@@ -353,14 +351,17 @@ Column {.tabset}
 ### Gráfico 1 - Evolução do Nº de Turmas Autorizadas, Criadas e Plano de Atendimento
 
 ```{r}
+
+# mutate(text = paste("Turmas Enturmados: ", PERCENTUAL_ENTURMADOS, "%", sep="")) %>% 
+
 p <- df_cri_aut %>%
   filter(SRE == regional) %>% 
   group_by(SRE, DATA) %>%
   summarize('TURMAS PLANO DE ATENDIMENTO' = sum(QT_TURMA_PA, na.rm = T),
             'TOTAL CRIADAS' = sum(QT_TURMA_CRIADA),
             'TOTAL AUTORIZADAS' = sum(QT_TURMA_AUTORIZADA)) %>%
-  gather(key = TOTAIS, value = VALORES, -SRE, -DATA) %>% 
-  ggplot(aes(DATA, VALORES, group = TOTAIS, colour = TOTAIS)) +
+  gather(key = "INFO", value = VALORES, -SRE, -DATA) %>% 
+  ggplot(aes(DATA, VALORES, colour = INFO)) +
   geom_line(size = 1) +
   geom_point(size = 1.5) +
   xlab('Data (últimos 5 dias)') +
@@ -381,21 +382,17 @@ ggplotly(p)
 ```{r}
 tabela_escola_criacao <- df_cri_aut %>%
   filter(SRE == regional) %>% 
-  group_by(COD_ESCOLA, ESCOLA, NIVEL) %>%
+  group_by(COD_ESCOLA, ESCOLA, NIVEL, ETAPA) %>%
   summarize(TOTAL_PA = sum(QT_TURMA_PA, na.rm = T),
             TOTAL_CRIADAS = sum(QT_TURMA_CRIADA),
-            TOTAL_AUTORIZADAS = sum(QT_TURMA_AUTORIZADA)) %>%  
-  mutate(PERCENTUAL_CRIADAS = floor((TOTAL_CRIADAS/TOTAL_PA)*100),
-       PERCENTUAL_AUTORIZADAS = floor((TOTAL_CRIADAS/TOTAL_CRIADAS)*100)) %>% ungroup() %>%
-  select(-TOTAL_PA, -TOTAL_CRIADAS, -TOTAL_AUTORIZADAS) %>% 
-  arrange(PERCENTUAL_CRIADAS, PERCENTUAL_AUTORIZADAS)
+            TOTAL_AUTORIZADAS = sum(QT_TURMA_AUTORIZADA)) %>% ungroup()
 
   
 datatable(tabela_escola_criacao,  rownames = FALSE,
           extensions = 'Buttons', options = list(
                                                  dom = 'Bfrtip',
                                                  buttons = c('excel', 'pdf')),
-          colnames = c("CÓDIGO ESCOLA", "ESCOLA", "NÍVEL", "% DE TURMAS CRIADAS", "% DE TURMAS AUTORIZADAS"))  
+          colnames = c("CÓDIGO ESCOLA", "ESCOLA", "NÍVEL", "ETAPA", "TOTAL DE TURMAS PA", "TOTAL DE TURMAS CRIADAS", "TOTAL DE AUTORIZADAS"))  
 ```
 
 
@@ -410,31 +407,30 @@ Column {data-height=150}
 ```{r}
 total_encerrados <- df_encer %>%
   filter(SRE == regional) %>% 
-  group_by(SRE, COD_ESCOLA, ESCOLA, DATA) %>%
+  group_by(SRE, COD_ESCOLA, ESCOLA, NIVEL, ETAPA, DATA) %>%
   summarize("TOTAL ENCERRADOS" = sum(QT_ALUNO_ENCERRADO),
-            "TOTAL ENTURMADOS NO DIA 10/12" = sum(QT_ALUNO_ENTURMADO_ATIVO)) %>% 
-  mutate("TOTAL ENTURMADOS NO DIA 10/12" = first(`TOTAL ENTURMADOS NO DIA 10/12`),
-         "% DE ENCERRADOS" = round((`TOTAL ENCERRADOS` / `TOTAL ENTURMADOS NO DIA 10/12`) * 100, digits = 2))
+            "TOTAL ENTURMADOS" = sum(QT_ALUNO_ENTURMADO_ATIVO)) %>% 
+  mutate("% DE ENCERRADOS" = round((`TOTAL ENCERRADOS` / `TOTAL ENTURMADOS`) * 100, digits = 2))
 
 alunos_encerrados <- total_encerrados %>%
   filter(DATA == last(DATA))%>%
   group_by(DATA) %>% 
   summarize(`TOTAL ENCERRADOS` = sum(`TOTAL ENCERRADOS`),
-            TOTAL_ENTURMADOS = sum(`TOTAL ENTURMADOS NO DIA 10/12`)) %>% 
+            TOTAL_ENTURMADOS = sum(`TOTAL ENTURMADOS`)) %>% 
   ungroup() %>% mutate(TOTAL = round((`TOTAL ENCERRADOS`/TOTAL_ENTURMADOS)*100, digits = 2))%>% .[[2]]
 
 alunos_enturmados <- total_encerrados %>%
   filter(DATA == last(DATA))%>%
   group_by(DATA) %>% 
   summarize(`TOTAL ENCERRADOS` = sum(`TOTAL ENCERRADOS`),
-            TOTAL_ENTURMADOS = sum(`TOTAL ENTURMADOS NO DIA 10/12`)) %>% 
+            TOTAL_ENTURMADOS = sum(`TOTAL ENTURMADOS`)) %>% 
   ungroup() %>% mutate(TOTAL = round((`TOTAL ENCERRADOS`/TOTAL_ENTURMADOS)*100, digits = 2))%>% .[[3]]
 
 pct_encerrado <- total_encerrados %>%
   filter(DATA == last(DATA))%>%
   group_by(DATA) %>% 
   summarize(`TOTAL ENCERRADOS` = sum(`TOTAL ENCERRADOS`),
-            TOTAL_ENTURMADOS = sum(`TOTAL ENTURMADOS NO DIA 10/12`)) %>% 
+            TOTAL_ENTURMADOS = sum(`TOTAL ENTURMADOS`)) %>% 
   ungroup() %>% mutate(TOTAL = round((`TOTAL ENCERRADOS`/TOTAL_ENTURMADOS)*100, digits = 1)) %>% .[[4]]
 
 gauge(value = pct_encerrado,
@@ -464,7 +460,7 @@ valueBox(prettyNum((alunos_enturmados - alunos_encerrados), big.mark = "."))
 escolas_abaixo <- nrow(total_encerrados %>% 
   group_by(COD_ESCOLA, ESCOLA) %>% 
   summarize(TOTAL_ENCERRADOS = sum(`TOTAL ENCERRADOS`),
-            TOTAL_ENTURMADOS = sum(`TOTAL ENTURMADOS NO DIA 10/12`)) %>% 
+            TOTAL_ENTURMADOS = sum(`TOTAL ENTURMADOS`)) %>% 
   ungroup() %>% mutate(`% DE ENCERRADOS` = round((TOTAL_ENCERRADOS/TOTAL_ENTURMADOS)*100, digits = 2)) %>% 
   arrange(desc(`% DE ENCERRADOS`)) %>%
   filter(`% DE ENCERRADOS` <= pct_encerrado))
@@ -490,14 +486,14 @@ graph2 <- total_encerrados %>%
   filter(DATA != data_padrao_encerramento) %>% 
   group_by(SRE, DATA) %>%
   summarize(TOTAL_ENCERRADOS = sum(`TOTAL ENCERRADOS`),
-            TOTAL_ENTURMADOS = sum(`TOTAL ENTURMADOS NO DIA 10/12`)) %>% 
+            TOTAL_ENTURMADOS = sum(`TOTAL ENTURMADOS`)) %>% 
   ungroup() %>% mutate(`% DE ENCERRADOS` = round((TOTAL_ENCERRADOS/TOTAL_ENTURMADOS)*100, digits = 2)) %>% 
   arrange(desc(`% DE ENCERRADOS`)) %>% 
   ggplot(aes(DATA, `% DE ENCERRADOS`)) +
   geom_point(size = 1.5) +
   geom_line(fill = "skyblue") +
   theme_economist() +
-  geom_text(aes(label = `% DE ENCERRADOS`),hjust=0, vjust=0) +
+  geom_text(aes(label = `% DE ENCERRADOS`),position = position_nudge(y = 0.01)) +
   labs(title = "",
        x = "Data",
        y = "% de Encerrados") +
@@ -517,7 +513,7 @@ datatable(tabela_escola,  rownames = FALSE,
           extensions = 'Buttons', options = list(
                                                  dom = 'Bfrtip',
                                                  buttons = c('excel', 'pdf')),
-          colnames = c("CÓDIGO ESCOLA", "ESCOLA", "TOTAL DE ALUNOS ENCERRADOS", "TOTAL DE ALUNOS ENTURMADOS (DATA-BASE)", "% DE ALUNOS ENCERRADOS"))  
+          colnames = c("CÓDIGO ESCOLA", "ESCOLA", "NIVEL", "ETAPA", "TOTAL DE ALUNOS ENCERRADOS", "TOTAL DE ALUNOS ENTURMADOS", "% DE ALUNOS ENCERRADOS"))  
 ```
 
 
