@@ -1,5 +1,5 @@
 ---
-title: "PAINEL DE ACOMPANHAMENTO DAS ATIVIDADES DO SIMADE 2018 - `r regional`"
+title: "PAINEL DE ACOMPANHAMENTO DO SIMADE 2018 - `r regional`"
 output: 
   flexdashboard::flex_dashboard:
     orientation: rows
@@ -25,19 +25,19 @@ Column {.sidebar data-width=450}
 
 ### **O que é este documento?**
 
-> Este documento reune dados relevantes sobre os seguintes temas: (I) Matrícula e Enturmação; (II) Criação de Turmas; (III) Encerramento de Alunos.
+> Este documento reúne dados relevantes sobre os seguintes temas: (I) Matrícula e Enturmação; (II) Criação de Turmas; (III) Encerramento de Alunos.
 
 ### **Para que ele foi criado?**
 
-> Este painel foi desenvolvido para facilitar o monitoramento, pelas SRE, das atividades que envolvem registros do SIMADE.
+> Este painel foi desenvolvido para facilitar o monitoramento, pelas SRE, das atividades que são realizadas no SIMADE.
 
 ### **A quem ele se destina?**
 
-> Ele se destina ao SEDINE, responsável pelo andamento dos processos que envolvem as informações enviadas. 
+> Ele se destina ao SEDINE, responsável pelo acompanhamento dos processos que envolvem os registros do SIMADE.  
 
 ### **Com que frequência ele será enviado?**
 
-> Durante o mês de Dezembro e até data limite - a ser estipulada - este painel será atualizado ao menos 3x/semana. 
+> Durante o mês de Dezembro e até data limite, a ser definida, este painel será atualizado ao menos 3 vezes por semana.. 
 
 Column {data-height=40}
 -----------------------------------------------------------------------
@@ -161,7 +161,7 @@ As informações referentes ao Encerramento de Alunos se encontram no painel super
 
 <!-- > O processo de enturmação estará disponível a partir do dia **19/12/2018** e deverá ser feito até **04/01/2019** -->
 
-<!-- Conforme ofício Circular SIE nº 17/2018. -->
+<!-- Conforme Ofício Circular SIE nº 17/2018. -->
 
 <!-- Column {.tabset} -->
 <!-- ----------------------------------------------------------------------- -->
@@ -341,13 +341,13 @@ Column {.sidebar data-width=350}
 
 ### **Qual a data de início para criação de turmas, conforme Plano de Atendimento 2019?**
 
-> A criação das turmas da Rede Pública Estadual está disponível para realização desde **13/12/2018**
+> A criação das turmas da Rede Pública Estadual está disponível para realização desde **13/12/2018**.
 
 ### **Qual o período para solicitação de autorização de funcionamento de turmas para 2019?**
 
-> A solicitação de autorização de turmas estará disponível a partir do dia **19/12/2018** e será suspensa no dia **26/12/2018**
+> A solicitação de autorização de turmas estará disponível a partir do dia **19/12/2018** e será suspensa no dia **26/12/2018**.
 
-Conforme ofício Circular SIE nº 17/2018.
+Conforme Ofício Circular SIE nº 17/2018.
 
 Column {.tabset} 
 -----------------------------------------------------------------------
@@ -481,7 +481,7 @@ Column {.sidebar data-width=350}
 
 ### **Qual a data para realização do Encerramento dos alunos?**
 
-> O encerramento dos alunos da Rede Pública Estadual deverá ser feita até **04/01/2019**
+> O encerramento dos alunos da Rede Pública Estadual deverá ser feita até **04/01/2019**.
 
 Column {.tabset} 
 -----------------------------------------------------------------------
