@@ -17,33 +17,33 @@ library(knitr)
 library(DT)
 ```
 
-IntroduÁ„o
+Introdu√ß√£o
 =====================================
 
 Column {.sidebar data-width=450}
 -----------------------------------------------------------------------
 
-### **O que È este documento?**
+### **O que √© este documento?**
 
-> Este documento re˙ne dados relevantes sobre os seguintes temas: (I) MatrÌcula e EnturmaÁ„o; (II) CriaÁ„o de Turmas; (III) Encerramento de Alunos.
+> Este documento re√∫ne dados relevantes sobre os seguintes temas: (I) Matr√≠cula e Enturma√ß√£o; (II) Cria√ß√£o de Turmas; (III) Encerramento de Alunos.
 
 ### **Para que ele foi criado?**
 
-> Este painel foi desenvolvido para facilitar o monitoramento, pelas SRE, das atividades que s„o realizadas no SIMADE.
+> Este painel foi desenvolvido para facilitar o monitoramento, pelas SRE, das atividades que s√£o realizadas no SIMADE.
 
 ### **A quem ele se destina?**
 
-> Ele se destina ao SEDINE, respons·vel pelo acompanhamento dos processos que envolvem os registros do SIMADE.  
+> Ele se destina ao SEDINE, respons√°vel pelo acompanhamento dos processos que envolvem os registros do SIMADE.  
 
-### **Com que frequÍncia ele ser· enviado?**
+### **Com que frequ√™ncia ele ser√° enviado?**
 
-> Durante o mÍs de Dezembro e atÈ data limite, a ser definida, este painel ser· atualizado ao menos 3 vezes por semana.. 
+> Durante o m√™s de Dezembro e at√© data limite, a ser definida, este painel ser√° atualizado ao menos 3 vezes por semana.. 
 
 Column {data-height=40}
 -----------------------------------------------------------------------
 
 ```{r}
-trinta <- "INFORMA«’ES RELEVANTES DE CADA PAINEL"
+trinta <- "INFORMA√á√ïES RELEVANTES DE CADA PAINEL"
 
 valueBox(value = trinta, color = "orange")
 ```
@@ -51,39 +51,39 @@ valueBox(value = trinta, color = "orange")
 Column {data-height=260}
 -----------------------------------------------------------------------
 
-### MATRÕCULA E ENTURMA«√O
+### MATR√çCULA E ENTURMA√á√ÉO
 
-As informaÁıes referentes ‡ MatrÌcula e EnturmaÁ„o podem ser acessadas pelo painel superior e o seu conte˙do se divide em:
+As informa√ß√µes referentes √† Matr√≠cula e Enturma√ß√£o podem ser acessadas pelo painel superior e o seu conte√∫do se divide em:
 
-* Uma **aba superior** que contÈm os principais dados de alunos matriculados e enturmados.
-* Dois **gr·ficos*** contendo a quantidade de escolas por percentual de enturmaÁ„o, sendo cada escola um ponto do gr·fico
-* Uma **tabela** com dados gerais - por escola -  do percentual de enturmados disponÌvel para downlod nos formatos **excel** e **pdf**.
+* Uma **aba superior** que cont√©m os principais dados de alunos matriculados e enturmados.
+* Dois **gr√°ficos*** contendo a quantidade de escolas por percentual de enturma√ß√£o, sendo cada escola um ponto do gr√°fico
+* Uma **tabela** com dados gerais - por escola -  do percentual de enturmados dispon√≠vel para downlod nos formatos **excel** e **pdf**.
 
-> *O primeiro destes gr·ficos permite que o usu·rio dÍ um zoom em seus pontos ao clicar e arrastar o mouse sobre a ·rea desejada. Para retorn·-lo ao tamanho original È necess·rio clicar no Ìcone superior que aparece no prÛprio gr·fico com o nome "Autoscale".
+> *O primeiro destes gr√°ficos permite que o usu√°rio d√™ um zoom em seus pontos ao clicar e arrastar o mouse sobre a √°rea desejada. Para retorn√°-lo ao tamanho original √© necess√°rio clicar no √≠cone superior que aparece no pr√≥prio gr√°fico com o nome "Autoscale".
 
 Column {data-height=280}
 -----------------------------------------------------------------------
 
-### CRIA«√O E AUTORIZA«√O DE TURMAS
+### CRIA√á√ÉO E AUTORIZA√á√ÉO DE TURMAS
 
-As informaÁıes referentes ‡ CriaÁ„o e AutorizaÁ„o de Turmas s„o acessadas pelo painel superior e o seu conte˙do se divide em:
+As informa√ß√µes referentes √† Cria√ß√£o e Autoriza√ß√£o de Turmas s√£o acessadas pelo painel superior e o seu conte√∫do se divide em:
 
-* Uma **aba superior** que contÈm os principais dados de turmas criadas e autorizadas na regional.
-* Um **gr·fico** contendo a evoluÁ„o do n˙mero de turmas Criadas, Autorizadas e contidas no Plano de Atendimento para os ˙ltimos cinco dias.
-* Uma **tabela** com dados gerais, por escola, do percentual de turmas criadas e autorizadas - tambÈm disponÌvel para downlod nos formatos **excel** e **pdf**.
+* Uma **aba superior** que cont√©m os principais dados de turmas criadas e autorizadas na regional.
+* Um **gr√°fico** contendo a evolu√ß√£o do n√∫mero de turmas Criadas, Autorizadas e contidas no Plano de Atendimento para os √∫ltimos cinco dias.
+* Uma **tabela** com dados gerais, por escola, do percentual de turmas criadas e autorizadas - tamb√©m dispon√≠vel para downlod nos formatos **excel** e **pdf**.
 
 Column {data-height=280}
 -----------------------------------------------------------------------
 
 ### ENCERRAMENTO DE ALUNOS
 
-As informaÁıes referentes ao Encerramento de Alunos se encontram no painel superior do arquivo e o seu conte˙do se divide em:
+As informa√ß√µes referentes ao Encerramento de Alunos se encontram no painel superior do arquivo e o seu conte√∫do se divide em:
 
-* Uma **aba superior** que contÈm os principais dados de alunos encerrados e pendentes de encerramento, bem como a quantidade de escolas que se encontram com percentual de encerramento abaixo da mÈdia das escolas da regional.
-* Um **gr·fico** contendo a evoluÁ„o do n˙mero percentual de Encerramento para diferentes datas (as ˙ltimas cinco disponÌveis no SIMADE).
-* Uma **tabela** com dados gerais absolutos e percentuais - por escola - de encerramento e que tambÈm se encontra disponÌvel para downlod nos formatos **excel** e **pdf**.
+* Uma **aba superior** que cont√©m os principais dados de alunos encerrados e pendentes de encerramento, bem como a quantidade de escolas que se encontram com percentual de encerramento abaixo da m√©dia das escolas da regional.
+* Um **gr√°fico** contendo a evolu√ß√£o do n√∫mero percentual de Encerramento para diferentes datas (as √∫ltimas cinco dispon√≠veis no SIMADE).
+* Uma **tabela** com dados gerais absolutos e percentuais - por escola - de encerramento e que tamb√©m se encontra dispon√≠vel para downlod nos formatos **excel** e **pdf**.
 
-MatrÌculas
+Matr√≠culas
 =====================================
 
 Column {data-height=150}
@@ -133,7 +133,7 @@ valueBox(prettyNum(total_enturmados, big.mark = "."))
 valueBox(length(unique(df_mat_ent %>% filter(SRE == regional) %>% .[[2]])), color = "orange")
 ```
 
-### N∫ DE ESCOLAS ABAIXO DA M…DIA DE ENTURMA«√O DA SRE
+### N¬∫ DE ESCOLAS ABAIXO DA M√âDIA DE ENTURMA√á√ÉO DA SRE
 
 ```{r}
 escolas_abaixo <- nrow(df_mat_ent %>%
@@ -151,20 +151,20 @@ valueBox(prettyNum(escolas_abaixo), color = "orange")
 Column {.sidebar data-width=350}
 -----------------------------------------------------------------------
 
-### **Qual o perÌodo para realizaÁ„o da MatrÌcula dos alunos?**
+### **Qual o per√≠odo para realiza√ß√£o da Matr√≠cula dos alunos?**
 
-> A matrÌcula dos alunos da Rede P˙blica Estadual dever· ser feita atÈ **04/01/2019**
+> A matr√≠cula dos alunos da Rede P√∫blica Estadual dever√° ser feita at√© **04/01/2019**
 
-### **Qual o prazo para realizaÁ„o da EnturmaÁ„o dos alunos?**
+### **Qual o prazo para realiza√ß√£o da Enturma√ß√£o dos alunos?**
 
-> O processo de enturmaÁ„o estar· disponÌvel a partir do dia **19/12/2018** e dever· ser feito atÈ **04/01/2019**
+> O processo de enturma√ß√£o estar√° dispon√≠vel a partir do dia **19/12/2018** e dever√° ser feito at√© **04/01/2019**
 
-Conforme OfÌcio Circular SIE n∫ 17/2018.
+Conforme Of√≠cio Circular SIE n¬∫ 17/2018.
 
 Column {.tabset}
 -----------------------------------------------------------------------
 
-### Gr·fico 1 - N∫ de escolas por percentual de EnturmaÁ„o
+### Gr√°fico 1 - N¬∫ de escolas por percentual de Enturma√ß√£o
 
 ```{r}
 p <- df_mat_ent %>%
@@ -179,8 +179,8 @@ p <- df_mat_ent %>%
   filter(PERCENTUAL_ENTURMADOS > 80) %>%
   ggplot(aes(as.factor(PERCENTUAL_ENTURMADOS), Y, size = QT_ALUNO_MATRICULADO)) +
   geom_point(aes(text = text), size = 1.5, color="skyblue" ) +
-  xlab('Percentual de EnturmaÁ„o') +
-  ylab('N∫ de Escolas') +
+  xlab('Percentual de Enturma√ß√£o') +
+  ylab('N¬∫ de Escolas') +
   theme_classic() +
   theme(
     legend.position="none",
@@ -190,7 +190,7 @@ p <- df_mat_ent %>%
 ggplotly(p, tooltip = "text")
 ```
 
-### Gr·fico 2 - EvoluÁ„o da MatrÌcula e EnturmaÁ„o nos ˙ltimos 5 dias
+### Gr√°fico 2 - Evolu√ß√£o da Matr√≠cula e Enturma√ß√£o nos √∫ltimos 5 dias
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 graph2 <- df_mat_ent %>%
@@ -199,10 +199,10 @@ graph2 <- df_mat_ent %>%
   summarize(TOTAL_MAT = sum(QT_ALUNO_MATRICULADO),
             TOTAL_ENT = sum(QT_ALUNO_ENTURMADO)) %>%
   mutate(PERCENTUAL_ENTURMADOS = round((TOTAL_ENT/TOTAL_MAT)*100, digits = 2),
-         NIVEL_2 = case_when(NIVEL == "PRESENCIAL - ENSINO FUNDAMENTAL" ~ "EDUCA«√O JOVENS E ADULTOS",
-                           NIVEL == "PRESENCIAL - ENSINO M…DIO" ~ "EDUCA«√O JOVENS E ADULTOS",
+         NIVEL_2 = case_when(NIVEL == "PRESENCIAL - ENSINO FUNDAMENTAL" ~ "EDUCA√á√ÉO JOVENS E ADULTOS",
+                           NIVEL == "PRESENCIAL - ENSINO M√âDIO" ~ "EDUCA√á√ÉO JOVENS E ADULTOS",
                            TRUE ~ as.character(NIVEL))) %>%
-  filter(NIVEL_2 != "EDUCA«√O JOVENS E ADULTOS" & PERCENTUAL_ENTURMADOS > 0) %>%
+  filter(NIVEL_2 != "EDUCA√á√ÉO JOVENS E ADULTOS" & PERCENTUAL_ENTURMADOS > 0) %>%
   ggplot(aes(as.factor(day(DATA)), PERCENTUAL_ENTURMADOS)) +
   geom_col(fill="steelblue") +
   theme_economist() +
@@ -227,7 +227,7 @@ datatable(tabela_escola_matricula,  rownames = FALSE,
           extensions = 'Buttons', options = list(
                                                  dom = 'Bfrtip',
                                                  buttons = c('excel', 'pdf')),
-          colnames = c("C”DIGO ESCOLA", "ESCOLA", "NÕVEL", "ETAPA", "N∫ DE MATRICULADOS", "N∫ DE ENTURMADOS", "% DE ENTURMADOS"))
+          colnames = c("C√ìDIGO ESCOLA", "ESCOLA", "N√çVEL", "ETAPA", "N¬∫ DE MATRICULADOS", "N¬∫ DE ENTURMADOS", "% DE ENTURMADOS"))
 ```
 
 
@@ -300,7 +300,7 @@ valueBox(prettyNum(total_turmas_criadas, big.mark = "."))
 valueBox(prettyNum(total_turmas_autorizadas, big.mark = "."))
 ```
 
-### N∫ DE ESCOLAS ABAIXO DA M…DIA DE CRIA«√O
+### N¬∫ DE ESCOLAS ABAIXO DA M√âDIA DE CRIA√á√ÉO
 
 ```{r}
 escolas_abaixo_criacao <- nrow(df_cri_aut %>%
@@ -316,39 +316,23 @@ valueBox(prettyNum(escolas_abaixo_criacao), color = "orange",
          href = '#pontos-de-alerta')
 ```
 
-<!-- ### ESCOLAS ABAIXO DA M…DIA DE AUTORIZA«√O -->
-
-<!-- ```{r} -->
-<!-- escolas_abaixo <- nrow(df_cri_aut %>% -->
-<!--   filter(SRE == regional) %>%  -->
-<!--   group_by(COD_ESCOLA, ESCOLA) %>% -->
-<!--   summarize(TOTAL_CRIADAS = sum(QT_TURMA_CRIADA, na.rm = T), -->
-<!--             TOTAL_AUTORIZADAS = sum(QT_TURMA_AUTORIZADA)) %>%  -->
-<!--   mutate(PERCENTUAL_AUTORIZADAS = round((TOTAL_CRIADAS/TOTAL_CRIADAS)*100)) %>% ungroup() %>%  -->
-<!--   arrange(PERCENTUAL_AUTORIZADAS) %>% -->
-<!--   filter(PERCENTUAL_AUTORIZADAS <= pct_autorizadas)) -->
-
-<!-- valueBox(prettyNum(escolas_abaixo), color = "orange") -->
-<!-- ``` -->
-
-
 Column {.sidebar data-width=350}
 -----------------------------------------------------------------------
 
-### **Qual a data de inÌcio para criaÁ„o de turmas, conforme Plano de Atendimento 2019?**
+### **Qual a data de in√≠cio para cria√ß√£o de turmas, conforme Plano de Atendimento 2019?**
 
-> A criaÁ„o das turmas da Rede P˙blica Estadual est· disponÌvel para realizaÁ„o desde **13/12/2018**.
+> A cria√ß√£o das turmas da Rede P√∫blica Estadual est√° dispon√≠vel para realiza√ß√£o desde **13/12/2018**.
 
-### **Qual o perÌodo para solicitaÁ„o de autorizaÁ„o de funcionamento de turmas para 2019?**
+### **Qual o per√≠odo para solicita√ß√£o de autoriza√ß√£o de funcionamento de turmas para 2019?**
 
-> A solicitaÁ„o de autorizaÁ„o de turmas estar· disponÌvel a partir do dia **19/12/2018** e ser· suspensa no dia **26/12/2018**.
+> A solicita√ß√£o de autoriza√ß√£o de turmas estar√° dispon√≠vel a partir do dia **19/12/2018** e ser√° suspensa no dia **26/12/2018**.
 
-Conforme OfÌcio Circular SIE n∫ 17/2018.
+Conforme Of√≠cio Circular SIE n¬∫ 17/2018.
 
 Column {.tabset} 
 -----------------------------------------------------------------------
 
-### Gr·fico 1 - EvoluÁ„o do N∫ de Turmas Autorizadas, Criadas e Plano de Atendimento
+### Gr√°fico 1 - Evolu√ß√£o do N¬∫ de Turmas Autorizadas, Criadas e Plano de Atendimento
 
 ```{r}
 
@@ -364,8 +348,8 @@ p <- df_cri_aut %>%
   ggplot(aes(DATA, VALORES, colour = INFO)) +
   geom_line(size = 1) +
   geom_point(size = 1.5) +
-  xlab('Data (˙ltimos 5 dias)') +
-  ylab('N∫ absoluto') +
+  xlab('Data (√∫ltimos 5 dias)') +
+  ylab('N¬∫ absoluto') +
   theme_classic() +
   theme(
     legend.position="bottom",
@@ -392,7 +376,7 @@ datatable(tabela_escola_criacao,  rownames = FALSE,
           extensions = 'Buttons', options = list(
                                                  dom = 'Bfrtip',
                                                  buttons = c('excel', 'pdf')),
-          colnames = c("C”DIGO ESCOLA", "ESCOLA", "NÕVEL", "ETAPA", "TOTAL DE TURMAS PA", "TOTAL DE TURMAS CRIADAS", "TOTAL DE AUTORIZADAS"))  
+          colnames = c("C√ìDIGO ESCOLA", "ESCOLA", "N√çVEL", "ETAPA", "TOTAL DE TURMAS PA", "TOTAL DE TURMAS CRIADAS", "TOTAL DE AUTORIZADAS"))  
 ```
 
 
@@ -454,7 +438,7 @@ valueBox(prettyNum(alunos_encerrados, big.mark = "."))
 valueBox(prettyNum((alunos_enturmados - alunos_encerrados), big.mark = "."))
 ```
 
-### ESCOLAS ABAIXO DA M…DIA DE ENCERRAMENTO DA SRE
+### ESCOLAS ABAIXO DA M√âDIA DE ENCERRAMENTO DA SRE
 
 ```{r}
 escolas_abaixo <- nrow(total_encerrados %>% 
@@ -472,14 +456,14 @@ valueBox(prettyNum(escolas_abaixo), color = "orange")
 Column {.sidebar data-width=350}
 -----------------------------------------------------------------------
 
-### **Qual a data para realizaÁ„o do Encerramento dos alunos?**
+### **Qual a data para realiza√ß√£o do Encerramento dos alunos?**
 
-> O encerramento dos alunos da Rede P˙blica Estadual dever· ser feita atÈ **04/01/2019**.
+> O encerramento dos alunos da Rede P√∫blica Estadual dever√° ser feita at√© **04/01/2019**.
 
 Column {.tabset} 
 -----------------------------------------------------------------------
 
-### Gr·fico 1 - EvoluÁ„o do Encerramento nos ˙ltimos 5 dias
+### Gr√°fico 1 - Evolu√ß√£o do Encerramento nos √∫ltimos 5 dias
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 graph2 <- total_encerrados %>%
@@ -513,7 +497,7 @@ datatable(tabela_escola,  rownames = FALSE,
           extensions = 'Buttons', options = list(
                                                  dom = 'Bfrtip',
                                                  buttons = c('excel', 'pdf')),
-          colnames = c("C”DIGO ESCOLA", "ESCOLA", "NIVEL", "ETAPA", "TOTAL DE ALUNOS ENCERRADOS", "TOTAL DE ALUNOS ENTURMADOS", "% DE ALUNOS ENCERRADOS"))  
+          colnames = c("C√ìDIGO ESCOLA", "ESCOLA", "NIVEL", "ETAPA", "TOTAL DE ALUNOS ENCERRADOS", "TOTAL DE ALUNOS ENTURMADOS", "% DE ALUNOS ENCERRADOS"))  
 ```
 
 
@@ -523,11 +507,11 @@ datatable(tabela_escola,  rownames = FALSE,
 <!-- Column {.sidebar data-width=400} -->
 <!-- ----------------------------------------------------------------------- -->
 
-<!-- ### **O que s„o os pontos de alerta?** -->
+<!-- ### **O que s√£o os pontos de alerta?** -->
 
-<!-- > Pontos de alerta s„o escolas que tem apresentado percentual abaixo da mÈdia das escolas da regional no que tange os registros (matrÌcula, enturmaÁ„o, encerramento) do SIMADE. -->
+<!-- > Pontos de alerta s√£o escolas que tem apresentado percentual abaixo da m√©dia das escolas da regional no que tange os registros (matr√≠cula, enturma√ß√£o, encerramento) do SIMADE. -->
 
-<!-- Obs: Os dados s„o atualizados diariamente e trazem informaÁıes dos ˙ltimos cinco (5) dias do sistema. -->
+<!-- Obs: Os dados s√£o atualizados diariamente e trazem informa√ß√µes dos √∫ltimos cinco (5) dias do sistema. -->
 
 <!-- Column {} -->
 <!-- ----------------------------------------------------------------------- -->
@@ -562,6 +546,6 @@ datatable(tabela_escola,  rownames = FALSE,
 <!--           extensions = 'Buttons', options = list( -->
 <!--                                                  dom = 'Bfrtip', -->
 <!--                                                  buttons = c('excel', 'pdf')), -->
-<!--           colnames = c("C”DIGO ESCOLA", "ESCOLA", "% DE ALUNOS ENTURMADOS", -->
+<!--           colnames = c("C√ìDIGO ESCOLA", "ESCOLA", "% DE ALUNOS ENTURMADOS", -->
 <!--                        "% DE TURMAS CRIADAS", "% DE TURMAS AUTORIZADAS")) -->
 <!-- ``` -->
